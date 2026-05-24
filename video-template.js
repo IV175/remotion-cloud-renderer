@@ -1,41 +1,49 @@
-import { registerRoot, AbsoluteFill } from 'remotion';
+import { registerRoot, Composition } from 'remotion';
 import React from 'react';
 
-const VideoLayout = ({ text }) => {
-    // Falls back to a clean default quote if no text payload is passed
-    const activeText = text || "Type your captivating content hook here!";
-
+// The Main Design component
+const ShortTemplate = ({ text }) => {
     return (
-        <AbsoluteFill style={{
-            backgroundColor: '#0f172a', // Clean, deep cinematic slate blue background
+        <div style={{
+            flex: 1,
+            backgroundColor: '#0f172a', // Cinematic slate blue background
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             padding: '60px',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
+            fontFamily: 'system-ui, sans-serif'
         }}>
-            <div style={{
-                fontSize: '64px',
+            <h1 style={{
+                color: '#ffffff', // Crisp white text
+                fontSize: '5.5rem',
                 fontWeight: '900',
-                color: '#ffffff',
                 textAlign: 'center',
                 textTransform: 'uppercase',
-                letterSpacing: '-1px',
                 lineHeight: '1.2',
-                maxWidth: '900px',
-                wordWrap: 'break-word',
-                textShadow: '0px 8px 24px rgba(0, 0, 0, 0.5)' // Gives depth to the text layer
+                letterSpacing: '-2px',
+                textShadow: '0px 12px 24px rgba(0, 0, 0, 0.6)' // Thick text depth shadow
             }}>
-                {activeText}
-            </div>
-        </AbsoluteFill>
+                {text || "Loading Content Hook..."}
+            </h1>
+        </div>
     );
 };
 
-export const HighRetentionShort = () => {
+// Setting up the video properties to match your cloud trigger
+const RemotionVideo = () => {
     return (
-        <VideoLayout text={window.remotion_props?.text} />
+        <Composition
+            id="HighRetentionShort"
+            component={ShortTemplate}
+            durationInFrames={60}
+            fps={30}
+            width={1080}
+            height={1920}
+            defaultProps={{
+                text: "Default Display Text"
+            }}
+        />
     );
 };
 
-registerRoot(HighRetentionShort);
+registerRoot(RemotionVideo);
